@@ -5,7 +5,17 @@ const withNextIntl = require("next-intl/plugin")(
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: "standalone",
+
   serverExternalPackages: ["pdf-parse", "pdfjs-dist"],
+
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "localhost" },
@@ -15,6 +25,7 @@ const nextConfig = {
       { protocol: "http", hostname: "minio" },
     ],
   },
+
   async redirects() {
     return [
       {

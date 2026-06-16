@@ -80,7 +80,7 @@ ENV NODE_OPTIONS="--max-old-space-size=4096"
 ENV NEXT_TELEMETRY_DISABLED=1
 
 RUN pnpm prisma generate
-RUN pnpm next build --webpack
+RUN pnpm next build --webpack > /tmp/next-build.log 2>&1 || (echo "===== NEXT BUILD FAILED =====" && cat /tmp/next-build.log && exit 1)
 
 
 # ============================================

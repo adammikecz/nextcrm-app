@@ -82,7 +82,6 @@ ENV NEXT_TELEMETRY_DISABLED=1
 RUN pnpm prisma generate
 RUN pnpm next build --webpack > /tmp/next-build.log 2>&1; status=$?; echo "===== NEXT BUILD OUTPUT ====="; cat /tmp/next-build.log; echo "===== NEXT BUILD EXIT CODE: $status ====="; exit $status
 
-
 # ============================================
 # Stage 3: Production runner
 # ============================================

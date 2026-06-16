@@ -38,7 +38,7 @@ services:
   inngest:
     image: 'inngest/inngest:latest'
     restart: unless-stopped
-    command: 'inngest dev -u http://app:3000/api/inngest'
+    command: 'inngest dev'
     expose:
       - '8288'
       - '8289'

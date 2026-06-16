@@ -76,8 +76,11 @@ ENV FIRECRAWL_API_KEY=""
 ENV E2B_API_KEY=""
 ENV SKIP_ENV_VALIDATION=1
 
+ENV NODE_OPTIONS="--max-old-space-size=4096"
+ENV NEXT_TELEMETRY_DISABLED=1
+
 RUN pnpm prisma generate
-RUN pnpm next build
+RUN pnpm next build --webpack
 
 
 # ============================================

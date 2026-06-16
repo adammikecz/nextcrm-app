@@ -29,9 +29,11 @@ if [ -z "$EMAIL_ENCRYPTION_KEY" ]; then
 fi
 
 # --- 3. Run Prisma migrations ---
-echo "==> Running database migrations..."
-prisma migrate deploy
-echo "==> Migrations complete."
+echo "==> Ensuring pgvector extension..."
+psql "$DATABASE_URL" -c 'CREATE EXTENSION IF NOT EXISTS vector;' || true
+
+echo "==> Syncing database schema..."
+prisma db push --accept-data-loss --skip-generate
 
 # --- 4. Create MinIO bucket (idempotent) ---
 if [ -n "$MINIO_ENDPOINT" ] && [ -n "$MINIO_ACCESS_KEY" ] && [ -n "$MINIO_SECRET_KEY" ] && [ -n "$MINIO_BUCKET" ]; then

@@ -12,10 +12,6 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
 
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "localhost" },

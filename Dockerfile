@@ -82,7 +82,7 @@ ENV NEXT_TELEMETRY_DISABLED=1
 RUN pnpm prisma generate
 RUN set +e; \
     rm -f /tmp/next-build.log /tmp/next-build.status; \
-    (pnpm next build --webpack > /tmp/next-build.log 2>&1; echo $? > /tmp/next-build.status) & \
+    (pnpm next build > /tmp/next-build.log 2>&1; echo $? > /tmp/next-build.status) & \
     pid=$!; \
     while kill -0 "$pid" 2>/dev/null; do \
       echo "===== next build still running: $(date) ====="; \

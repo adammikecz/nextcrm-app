@@ -80,8 +80,20 @@ ENV NODE_OPTIONS="--max-old-space-size=4096"
 ENV NEXT_TELEMETRY_DISABLED=1
 
 RUN pnpm prisma generate
-RUN pnpm next build --webpack > /tmp/next-build.log 2>&1; status=$?; echo "===== NEXT BUILD OUTPUT ====="; cat /tmp/next-build.log; echo "===== NEXT BUILD EXIT CODE: $status ====="; exit $status
-
+RUN set +e; \
+    rm -f /tmp/next-build.log /tmp/next-build.status; \
+    (pnpm next build --webpack > /tmp/next-build.log 2>&1; echo $? > /tmp/next-build.status) & \
+    pid=$!; \
+    while kill -0 "$pid" 2>/dev/null; do \
+      echo "===== next build still running: $(date) ====="; \
+      sleep 20; \
+    done; \
+    wait "$pid"; \
+    status=$(cat /tmp/next-build.status 2>/dev/null || echo 1); \
+    echo "===== NEXT BUILD OUTPUT ====="; \
+    cat /tmp/next-build.log || true; \
+    echo "===== NEXT BUILD EXIT CODE: $status ====="; \
+    exit "$status"
 # ============================================
 # Stage 3: Production runner
 # ============================================

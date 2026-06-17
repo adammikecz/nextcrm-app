@@ -33,7 +33,7 @@ echo "==> Ensuring pgvector extension..."
 psql "$DATABASE_URL" -c 'CREATE EXTENSION IF NOT EXISTS vector;' || true
 
 echo "==> Syncing database schema..."
-prisma db push --accept-data-loss --skip-generate
+prisma db push --accept-data-loss
 
 # --- 4. Create MinIO bucket (idempotent) ---
 if [ -n "$MINIO_ENDPOINT" ] && [ -n "$MINIO_ACCESS_KEY" ] && [ -n "$MINIO_SECRET_KEY" ] && [ -n "$MINIO_BUCKET" ]; then

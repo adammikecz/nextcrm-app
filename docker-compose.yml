@@ -85,6 +85,7 @@ services:
       OPENAI_API_KEY: '${OPENAI_API_KEY:-sk-placeholder-replace-to-enable-ai}'
       RESEND_API_KEY: '${RESEND_API_KEY:-re_placeholder_replace_to_enable_email}'
       RESEND_FROM_EMAIL: '${RESEND_FROM_EMAIL:-}'
+      EMAIL_FROM: '${RESEND_FROM_EMAIL:-}'
       GOOGLE_ID: '${GOOGLE_ID:-}'
       GOOGLE_SECRET: '${GOOGLE_SECRET:-}'
       FIRECRAWL_API_KEY: '${FIRECRAWL_API_KEY:-}'
